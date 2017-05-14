@@ -1,0 +1,703 @@
+@CHARSET "UTF-8";
+
+/* External font Start */
+@import url(http://fonts.googleapis.com/earlyaccess/jejugothic.css);
+@import url(http://fonts.googleapis.com/earlyaccess/hanna.css);
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+@import url(http://fonts.googleapis.com/earlyaccess/nanumbrushscript.css);
+@import url(http://fonts.googleapis.com/earlyaccess/jejumyeongjo.css);
+/* External font End */
+
+body {
+  font-family: 'Nanum Gothic', sans-serif;
+}
+
+header {
+  width: 100%;
+  position: fixed;
+  background: white;
+  z-index: 2;
+  left: 0;
+  top: 0;
+  min-height: 4em;
+  max-height: 4em;
+}
+
+/* Menu bar Start */
+div.Bar {
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+}
+
+div.Bar button.Menu {
+  float: left;
+  border: none;
+  outline: none;
+  transition: 0.3s;
+  font-size: 17px;
+  font-weight: 400px;
+  color: Gray;
+  background-color: white;
+  max-height: 4em;
+  padding: 0.3em 1.5em;
+}
+
+@media only screen and (max-width: 1026px) {
+  div.Bar button.hide {
+    display: none;
+  }
+}
+
+div.Bar button.Menu:hover {
+  background-color: #CC1111;
+  color: white;
+  cursor:pointer;
+}
+
+div.Bar button.white-background:hover {
+  background-color: white;
+}
+
+#apple_logo {
+  width: 30px;
+  height: 30px;
+}
+
+#home_button {
+  font-size: 2em;
+  font-family: "Hanna", "Source Sans Pro", sans-serif;
+  font-weight: 100;
+  height: 1em;
+}
+
+#home_button:hover {
+  color: #339900;
+  background-color: white;
+}
+
+#dropdown {
+  width: 20px;
+  height: 20px;
+  padding: 10px;
+  opacity: 0.7;
+  border: 1px solid gray;
+  border-radius: 7px;
+  vertical-align: middle;
+  margin-left: 3em;
+  cursor:pointer;
+  margin: 0.6em;
+}
+
+#dropdown:hover {
+  opacity: 1;
+}
+
+#check {
+  display:none
+}
+
+#check:checked ~ #dropdown_list{
+  max-height:400px;
+  transition:max-height 0.5s ease-in;
+}
+
+#dropdown_list {
+  top: 4em;
+  max-height:0;
+  padding:0;
+  overflow:hidden;
+  list-style-type:none;
+  background-color: white;
+  box-shadow:0 0 1px rgba(0,0,0,.3);
+  transition:max-height 0.5s ease-out;
+  position:absolute;
+  min-width:100%;
+  -webkit-margin-before: 0;
+  -webkit-margin-after: 0;
+}
+
+#dropdown_list li a {
+  display:block;
+  padding:12px;
+  color: gray;
+  text-decoration:none;
+  transition:background .3s;
+  white-space:nowrap;
+}
+
+#dropdown_list li{
+  padding: 0.5em;
+  text-align: center;
+}
+
+#dropdown_list li a:hover{
+  font-weight: bold;
+}
+/* Menu bar End */
+
+/* Main Start */
+
+/* ------------------- ImageSlide Start ------------------- */
+
+div.ImageSlide {
+  top: 4em;
+  background-color : white;
+  outline : none;
+  width : 100%;
+  height : 500px;
+}
+
+/* Slideshow container */
+.slideshow-container {
+  height: 500px;
+  position: relative;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.mySlides {
+  display: none;
+}
+
+.mySlide {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  position: absolute;
+  top:0;
+  left:0;
+}
+
+/* Next & previous buttons */
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  margin-top: -22px;
+  padding: 16px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 1em 1em 0;
+}
+
+/* Position the "next button" to the right */
+.next {
+  right: 0;
+  border-radius: 1em 0 0 1em;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover, .next:hover {
+  background-color: rgba(0,0,0,0.8);
+  opacity: 0.7;
+}
+
+/* Caption text */
+.text {
+  color: #f2f2f2;
+  font-size: 15px;
+  padding: 8px 12px;
+  position: absolute;
+  bottom: 8px;
+  width: 100%;
+  text-align: center;
+}
+
+/* Number text (1/3 etc) */
+.numbertext {
+  color: #f2f2f2;
+  font-size: 12px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 10%;
+}
+
+/* The dots/bullets/indicators */
+.dot {
+  cursor:pointer;
+  height: 14px;
+  width: 14px;
+  margin: 0 2px;
+  background-color: white;
+  border-radius: 7px;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+  opacity: 0.4;
+}
+
+.active, .dot:hover {
+  background-color: white;
+  opacity: 1;
+}
+
+.active {
+  height: 14px;
+  width: 30px;
+}
+
+#slide_index {
+  cursor: pointer;
+  position: absolute;
+  top: 95%;
+  left: 45%;
+  width: auto;
+  margin-top: -22px;
+  padding: 16px;
+  color: white;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+}
+
+/* Fading animation */
+.fade {
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 1.5s;
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@-webkit-keyframes fade {
+  from {opacity: .4}
+  to {opacity: 1}
+}
+
+@keyframes fade {
+  from {opacity: .4}
+  to {opacity: 1}
+}
+
+/* ------------------- ImageSlide ------------------- */
+
+/* ------------------- Introduce Start ------------------- */
+div.Introduce {
+  background-color : #CC1111;
+  background-image: url("../img/background-pattern.png");
+  background-repeat: repeat;
+  outline : none;
+  width : 100%;
+  height : auto;
+  text-align: center;
+  /*border-radius: 0 0 1em 1em;*/
+}
+
+#table_introduce {
+  width : 100%;
+  height: 100%;
+  /*border: 1px solid black;*/
+  border-collapse: collapse;
+  max-width: 1000px;
+  text-align: center;
+  margin: 0 auto;
+}
+
+th {
+  font-family: 'Nanum Brush Script', "Source Sans Pro", sans-serif;
+  font-size: 3em;
+  font-weight: lighter;
+}
+
+div.Introduce th {
+  /*valign: middle;*/
+  /*width: 50%;*/
+  color: white;
+  /*border: 1px solid black;*/
+  padding: 1.2em;
+}
+
+div.Introduce td{
+  padding: 0.5em;
+  color: white;
+}
+
+tfoot td{
+  padding: 1em;
+}
+
+.keyword {
+  font-size: 3em;
+  text-decoration: underline;
+  font-family: serif;
+}
+
+#fresh {
+  color: skyblue;
+}
+
+#healthy {
+  color: lightgreen;
+}
+
+#sweet {
+  color: yellow;
+}
+
+.order {
+  margin-bottom: 2em;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 6px 8px 0px #660000;
+  background: yellow;
+  color: black;
+  text-decoration: none;
+  font-size: 1.2em;
+  font-weight: bold;
+  border: none;
+}
+
+.order:hover {
+  cursor: pointer;
+}
+
+.order:active {
+  box-shadow: 0 0 #BA8CB5;
+  background-color: #BA8CB5;
+  cursor: pointer;
+}
+/* ------------------- Introduce End ------------------- */
+
+/* ------------------- Gallery Start------------------- */
+div.Gallery {
+  width: 100%;
+  height: auto;
+  text-align: center;
+  position: relative;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+div.Gallery span {
+  position: relative;
+  display: inline-block;
+  width: 250px;
+  height: 250px;
+  overflow: hidden;
+  border: 5px solid #fff;
+  box-shadow: 0 0 5px #ddd;
+  margin: 0.5em;
+}
+
+div.Gallery img.apple {
+  width: 250px;
+  height: 250px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+div.Gallery .x {
+  position:absolute;
+  top:0;
+  left:0;
+  z-index: 1;
+  padding: 0;
+  border: none;
+  background: none;
+}
+
+div.Gallery .x > img {
+  width: 20px;
+  height: 20px;
+}
+
+div.Gallery .x > img:hover {
+  opacity: 0.5;
+  cursor:pointer;
+}
+
+.middle {
+  transition: .5s ease;
+  opacity: 0;
+  position: absolute;
+  top: 65%;
+  left: 40%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  width: 80px;
+}
+
+.container:hover .middle {
+  opacity: 1;
+  cursor: zoom-in;
+}
+
+.container:hover .apple {
+  opacity: 0.5;
+  transform: scale(1.1);
+  transition: all 0.3s ease-in-out;
+  cursor: zoom-in;
+}
+
+.text {
+  background-color: green;
+  color: white;
+  font-size: 1em;
+  padding: 16px 32px;
+  font-family: 'Hanna'
+}
+
+#reset_image_button {
+  border: none;
+  padding: 8px 15px 8px 15px;
+  background: pink;
+  color: black;
+  box-shadow: 1px 1px 4px #DADADA;
+  -moz-box-shadow: 1px 1px 4px #DADADA;
+  -webkit-box-shadow: 1px 1px 4px #DADADA;
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  font-family: 'Hanna';
+}
+
+#reset_image_button:hover {
+  opacity: 0.7;
+  cursor: pointer;
+}
+
+#reset_image_button:active {
+  background-color: gray;
+}
+
+.reset_image_div {
+  padding-bottom: 1em;
+}
+
+img.modal-image {
+  display: none;
+}
+#myModal {
+  z-index: 3;
+  display: none;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.8);
+}
+
+.modal-nav > button {
+  font-size: 2em;
+  color: none;
+  border: none;
+  background: white;
+  opacity: 0.7;
+  padding: 0.5em;
+}
+
+.modal-nav > button:hover {
+  opacity: 0.4;
+}
+
+.modal-contents > img {
+  width: 50%;
+  height: auto;
+  position: absolute;
+  margin: auto;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.modal-contents {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+}
+
+.display-left {
+  position: absolute;
+  top: 45%;
+  left: 0;
+  border-radius: 0 0.5em 0.5em 0;
+}
+
+.display-right {
+  position: absolute;
+  top: 45%;
+  right: 0;
+  border-radius: 0.5em 0 0 0.5em;
+}
+
+/* ------------------- Gallery Endt------------------- */
+
+/* ------------------- Guestbook Start------------------- */
+
+div.Guestbook {
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+div.Guestbook #Guestbook-title {
+  border: 1px solid #3399CC;
+  border-radius: 1em 1em 0 0;
+  height : auto;
+  outline: none;
+  padding: 1em;
+  position: relative;
+  font-size: 1em;
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+  color: #3399CC;
+}
+
+#no-value {
+  font-size: 0.8em;
+  font-style: italic;
+}
+
+div.Guestbook #Guestbook-input {
+  background-color : white;
+  border: 1px solid lightgray;
+  border-radius: 0 0 1em 1em;
+  height : auto;
+  outline: none;
+  padding: 1em;
+  position: relative;
+  font-size: 1em;
+  text-align: center;
+  color: gray;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+#guestbook_icon {
+  width: 50px;
+  height: auto;
+}
+
+#Guestbook-input-table {
+  margin: 0 auto;
+}
+
+div.Guestbook input {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  border: 1px solid #C2C2C2;
+  box-shadow: 1px 1px 4px #EBEBEB;
+  -moz-box-shadow: 1px 1px 4px #EBEBEB;
+  -webkit-box-shadow: 1px 1px 4px #EBEBEB;
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  padding: 7px;
+  outline: none;
+}
+
+div.Guestbook input:focus {
+  border: 1px solid #0C0;
+}
+
+#Guestbook-input td {
+  padding: 0.1em;
+  width: 50px;
+  text-align: left;
+}
+
+#add_comment_button {
+  margin-top: 10px;
+  border: none;
+  padding: 8px 15px 8px 15px;
+  background: #FF8500;
+  color: #fff;
+  box-shadow: 1px 1px 4px #DADADA;
+  -moz-box-shadow: 1px 1px 4px #DADADA;
+  -webkit-box-shadow: 1px 1px 4px #DADADA;
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  font-family: 'Hanna';
+}
+
+#add_comment_button:hover {
+  opacity: 0.7;
+  cursor: pointer;
+}
+
+#add_comment_button:active {
+  background-color: gray;
+}
+
+#Guestbook-appended {
+  text-align: center;
+}
+
+#Guestbook-appended td {
+  color: black;
+  border: 1px solid lightgray;
+  border-collapse: collapse;
+}
+
+#Guestbook-appended-table {
+  display: none;
+  margin: 20px auto;
+}
+
+#Guestbook-appended-table td {
+  padding: 10px;
+}
+
+button.comment-button {
+  background: none;
+  border: none;
+}
+
+button.comment-button:hover {
+  cursor: pointer;
+}
+
+/* ------------------- Guestbook End------------------- */
+
+/* ------------------- Map Start ------------------- */
+#map {
+  width: 500px;
+  height: 500px;
+  margin: 1em auto;
+}
+
+#address {
+  text-align: center;
+  font-size: 1em;
+  color: gray;
+}
+/* ------------------- Map End------------------- */
+
+/* Main End */
+
+/* Footer Start */
+footer {
+  padding: 0.2em 1em;
+  display: block;
+  background-color: #339933;
+  color: white;
+  font-size: 0.8em;
+  border-radius: 1em 1em 0 0;
+}
+
+footer div {
+  text-align: center;
+}
+
+footer img {
+  width: 3em;
+  height: 3em;
+  margin: 0.3em;
+  margin-top: 1em;
+}
+
+#author {
+  text-align: right;
+}
+
+#author > span {
+  text-decoration: underline;
+  font-weight: bold;
+}
+/* Footer End */
