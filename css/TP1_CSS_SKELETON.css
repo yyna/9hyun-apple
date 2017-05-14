@@ -158,6 +158,7 @@ div.ImageSlide {
 
 .mySlides {
   display: none;
+  height: 100%;
 }
 
 .mySlide {
@@ -252,22 +253,17 @@ div.ImageSlide {
   border-radius: 0 3px 3px 0;
 }
 
-/* Fading animation */
-.fade {
-  -webkit-animation-name: fade;
-  -webkit-animation-duration: 1.5s;
-  animation-name: fade;
-  animation-duration: 1.5s;
-}
+.w3-content {margin:auto}.w3-rest{overflow:hidden}
+.w3-section,.w3-code{margin-top:16px!important;margin-bottom:16px!important}
 
-@-webkit-keyframes fade {
-  from {opacity: .4}
-  to {opacity: 1}
+/*slideshow animation*/
+.w3-animate-right {
+  position: relative;
+  animation: animateright 0.4s;
 }
-
-@keyframes fade {
-  from {opacity: .4}
-  to {opacity: 1}
+@keyframes animateright {
+  from {right: -300px; opacity: 0}
+  to { right: 0; opacity: 1}
 }
 
 /* ------------------- ImageSlide ------------------- */
@@ -292,25 +288,24 @@ div.Introduce {
   max-width: 1000px;
   text-align: center;
   margin: 0 auto;
+  /*font-family: 'Jeju Myeongjo';*/
 }
 
-th {
-  font-family: 'Nanum Brush Script', "Source Sans Pro", sans-serif;
-  font-size: 3em;
+#table_introduce h1 {
+  font-family: 'Jeju Myeongjo', "Source Sans Pro", sans-serif;
   font-weight: lighter;
 }
 
 div.Introduce th {
-  /*valign: middle;*/
-  /*width: 50%;*/
   color: white;
-  /*border: 1px solid black;*/
-  padding: 1.2em;
+  padding: 1.5em;
 }
 
 div.Introduce td{
-  padding: 0.5em;
+  padding: 0.8em;
   color: white;
+  /*font-family: 'Jeju Myeongjo';*/
+  line-height: 150%;
 }
 
 tfoot td{
@@ -318,7 +313,7 @@ tfoot td{
 }
 
 .keyword {
-  font-size: 3em;
+  font-size: 2.5em;
   text-decoration: underline;
   font-family: serif;
 }
@@ -535,7 +530,8 @@ div.Guestbook {
   margin-bottom: 20px;
 }
 div.Guestbook #Guestbook-title {
-  border: 1px solid #3399CC;
+  /*border: 1px solid #3399CC;*/
+  background-color: #3399CC;
   border-radius: 1em 1em 0 0;
   height : auto;
   outline: none;
@@ -545,7 +541,7 @@ div.Guestbook #Guestbook-title {
   text-align: center;
   max-width: 800px;
   margin: 0 auto;
-  color: #3399CC;
+  color: white;
 }
 
 #no-value {

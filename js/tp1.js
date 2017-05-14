@@ -1,3 +1,13 @@
+// Array var for Local Storage
+var galleryArray = ["show", "show", "show", "show", "show", "show"];
+
+// onload funtion
+window.onload = function() {
+  cycle();
+  checkLocalStorage();
+}
+
+// --------------------------------------------------------------- Bar
 // dropdown checkbox
 function dropdown_image() {
   var check = document.getElementById("check")
@@ -9,12 +19,8 @@ function dropdown_image() {
   }
 }
 
-// slideshow
+// --------------------------------------------------------------- ImageSlide
 var slideIndex = 0;
-window.onload = function() {
-  //showSlides(slideIndex);
-  cycle();
-}
 
 function plusSlides(n) {
   showSlides(slideIndex += n);
@@ -44,20 +50,6 @@ function showSlides(n) {
 function cycle() {
   plusSlides(1);
   setTimeout(cycle, 5000);
-}
-
-// google map
-function initMap() {
-  var uluru = {lat: 36.317810, lng: 128.440826};
-  var map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 16,
-    center: uluru,
-    mapTypeId: 'satellite'
-  });
-  var marker = new google.maps.Marker({
-    position: uluru,
-    map: map
-  });
 }
 
 // Menu bar onclick scroll
@@ -90,11 +82,15 @@ function clickDropdownList(target) {
   document.getElementById("check").checked = false;
 }
 
-// Gallery
+// --------------------------------------------------------------- Gallery
 function removeImage(n) {
   var x = document.getElementsByClassName("container");
-  x[n-1].style.display = "none";
-  removeModalImage(n-1);
+  x[n].style.display = "none";
+  removeModalImage(n);
+
+  // for LocalStorage
+  galleryArray[n] = "hide";
+  window.localStorage.setItem("GalleryArray", JSON.stringify(galleryArray));
 }
 
 function resetAllImages() {
@@ -104,6 +100,11 @@ function resetAllImages() {
     x[i].style.display = "inline-block";
   }
   resetAllModalImages()
+
+  for (i=0; i<galleryArray.length; i++) {
+    galleryArray[i] = "show";
+  }
+  window.localStorage.setItem("GalleryArray", JSON.stringify(galleryArray));
 }
 
 // modal
@@ -116,15 +117,23 @@ function closeModal() {
 }
 
 var modalIndex = 0;
-showDivs(modalIndex);
+// showDivs(modalIndex);
 
 function plusDivs(n) {
   var x = document.getElementsByClassName("modal-image");
-  if (n > 0 && (x[(modalIndex+n)%x.length].classList.contains("modal-show") === false)) {
+  // console.log(x);
+  if (x[(modalIndex+n)%x.length].classList.contains("modal-show") === false) {
     plusDivs((n+1)%x.length);
   }
-  else if (n < 0 && (x[(x.length+modalIndex+n)%x.length].classList.contains("modal-show") === false)) {
-    plusDivs((n-1)%x.length);
+  else {
+    showDivs(modalIndex += n);
+  }
+}
+
+function minusDivs(n) {
+  var x = document.getElementsByClassName("modal-image");
+  if (x[(modalIndex+n)%x.length].classList.contains("modal-show") === false) {
+    minusDivs((n-1)%x.length);
   }
   else {
     showDivs(modalIndex += n);
@@ -138,8 +147,11 @@ function currentDiv(n) {
 function showDivs(n) {
   var i;
   var x = document.getElementsByClassName("modal-image");
-  if (n >= x.length) {modalIndex = 0}
-  if (n < 0) {modalIndex = x.length-1}
+  if (n >= x.length) {modalIndex %= x.length}
+  if (n < 0) {
+    modalIndex += x.length;
+    modalIndex %= x.length;
+  }
   for (i = 0; i < x.length; i++) {
      x[i].style.display = "none";
   }
@@ -153,15 +165,25 @@ function removeModalImage(n) {
 
 function resetAllModalImages() {
   var x = document.getElementsByClassName("modal-image");
-  var i;
-  for (i=0; i<x.length; i++) {
+  for (var i=0; i<x.length; i++) {
     if (x[i].classList.contains("modal-show") === false) {
       x[i].classList.add("modal-show");
     }
   }
 }
 
-// Guestbook
+function checkLocalStorage() {
+  var x = JSON.parse(window.localStorage.getItem("GalleryArray"));
+  for (var i=0; i<x.length; i++) {
+    if (x[i] === "hide") {
+      removeModalImage(i);
+      removeImage(i);
+      galleryArray[i] = "hide";
+    }
+  }
+}
+
+// --------------------------------------------------------------- Guestbook
 function append_guestbook() {
   var writer = document.getElementById("writer");
   var comment = document.getElementById("comment");
@@ -176,12 +198,14 @@ function append_guestbook() {
     var cell2 = row1.insertCell(1);
     cell1.innerHTML = "<img src=https://cdn3.iconfinder.com/data/icons/black-easy/512/538303-user_512x512.png width=40px height=40px><br>" + writer.value;
     cell2.innerHTML = comment.value;
+
     cell1.style.width = "200px";
     cell1.style.borderTopLeftRadius = "1em";
     cell2.style.width = "600px";
     cell2.style.textAlign = "left";
     cell2.style.borderTopRightRadius = "1em";
 
+    // comment tr
     var row2 = my_tbody.insertRow(my_tbody.rows.length);
     cell1 = row2.insertCell(0);
     cell1.style.borderBottomRightRadius = "1em";
@@ -204,6 +228,59 @@ function add_comment(n) {
   }
   else {
     var my_tbody = document.getElementById("Guestbook-appended-table");
-    my_tbody.rows[n-1].cells[0].innerHTML = "답변 : " + comment;
+    var expression = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
+    var regex = new RegExp(expression);
+    var found_url = regex.exec(comment);
+
+    // ogp일때
+    if (found_url !== null) {
+      url = found_url[0];
+      if (url.charAt(0) !== 'h') {
+        url = "https://" + url;
+      }
+      var ogp = readOGP(url);
+
+      // open graph tags를 못찾을 경우
+      if (ogp.error === 'No OpenGraph Tags Found') {
+        my_tbody.rows[n-1].cells[0].innerHTML = "답변 : " + comment;
+      }
+      else {
+        my_tbody.rows[n-1].cells[0].innerHTML = "<a href=" + ogp.url + " target=_blank style=text-decoration:none;><table style=border-collapse:collapse;margin:auto;><tr><td><img src=" + ogp.image + " width=150px height=150px></td> <td style=text-align:left;color:gray;width:500px;> <h3 style=color:black;>" + ogp.title + "</h3><br>" + ogp.description + "<br><br>" + ogp.url +
+        "</td></a></tr></table>";
+      }
+    }
+    else {
+      my_tbody.rows[n-1].cells[0].innerHTML = "답변 : " + comment;
+    }
   }
+}
+
+function readOGP(url) {
+  var encoded_url = encodeURIComponent(url);
+  var ogp = httpGet("http://opengraph.io/api/1.0/site/" + encoded_url + "?app_id=59182c8e478394eb24a68aa6");
+  var ogp = JSON.parse(ogp).openGraph;
+
+  return ogp;
+}
+
+function httpGet(theUrl) {
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
+    xmlHttp.send( null );
+    return xmlHttp.responseText;
+}
+
+//  --------------------------------------------------------------- Location
+// google map
+function initMap() {
+  var uluru = {lat: 36.317810, lng: 128.440826};
+  var map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 16,
+    center: uluru,
+    mapTypeId: 'satellite'
+  });
+  var marker = new google.maps.Marker({
+    position: uluru,
+    map: map
+  });
 }

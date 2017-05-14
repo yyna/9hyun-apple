@@ -37,29 +37,31 @@
 	</header>
 
 	<main>
+		<!-- Image Slide -->
 		<div class = "ImageSlide">
-			<div class="slideshow-container">
-				<div class="mySlides fade">
+			<div class="slideshow-container w3-content w3-section">
+
+				<div class="mySlides w3-animate-right">
 					<div class="numbertext">1 / 5</div>
 					<img src="img/1.jpg" class="mySlide">
 				</div>
 
-				<div class="mySlides fade">
+				<div class="mySlides w3-animate-right">
 					<div class="numbertext">2 / 5</div>
 					<img src="img/2.jpg" class="mySlide">
 				</div>
 
-				<div class="mySlides fade">
+				<div class="mySlides w3-animate-right">
 					<div class="numbertext">3 / 5</div>
 					<img src="img/3.jpg" class="mySlide">
 				</div>
 
-				<div class="mySlides fade">
+				<div class="mySlides w3-animate-right">
 					<div class="numbertext">4 / 5</div>
 					<img src="img/4.jpg" class="mySlide">
 				</div>
 
-				<div class="mySlides fade">
+				<div class="mySlides w3-animate-right">
 					<div class="numbertext">5 / 5</div>
 					<img src="img/5.jpg" class="mySlide">
 				</div>
@@ -77,11 +79,12 @@
 			</div>
 		</div>
 
+		<!-- Introduce -->
 		<div class = "Introduce">
 			<table id="table_introduce">
 				<thead>
 					<tr>
-						<th colspan="2">구현농원을 소개합니다.</th>
+						<th colspan="2"><h1>구현농원을 소개합니다.</h1></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -108,11 +111,14 @@
 					</tr>
 				</tfoot>
 			</table>
+
+			<iframe src='https://cdn.knightlab.com/libs/timeline3/latest/embed/index.html?source=1bzWtFYPFve4lcBr4WsFAsmbfyW-LRgU4_eL2X0n8PhE&font=Default&lang=en&initial_zoom=2&height=500' width='100%' height='500' webkitallowfullscreen mozallowfullscreen allowfullscreen frameborder='0'></iframe>
 		</div>
 
+		<!-- Gallery -->
 		<div class = "Gallery">
 			<span class="container">
-				<button class="x" onclick="removeImage(1)" onclick="removeImage(1)">
+				<button class="x" onclick="removeImage(0)">
 					<image src="img/modal_button/x.png">
 				</button>
 				<img src="img/부사.jpg" alt="부사" class="apple" onclick="openModal();currentDiv(0)">
@@ -121,7 +127,7 @@
 				</div>
 			</span>
 			<span class="container">
-				<button class="x" onclick="removeImage(2)">
+				<button class="x" onclick="removeImage(1)">
 					<image src="img/modal_button/x.png">
 				</button>
 				<img src="img/홍옥.jpg" alt="홍옥" class="apple" onclick="openModal();currentDiv(1)">
@@ -130,7 +136,7 @@
 				</div>
 			</span>
 			<span class="container">
-				<button class="x" onclick="removeImage(3)">
+				<button class="x" onclick="removeImage(2)">
 					<image src="img/modal_button/x.png">
 				</button>
 				<img src="img/홍로.jpg" alt="홍로" class="apple" onclick="openModal();currentDiv(2)">
@@ -139,7 +145,7 @@
 				</div>
 			</span>
 			<span class="container">
-				<button class="x" onclick="removeImage(4)">
+				<button class="x" onclick="removeImage(3)">
 					<image src="img/modal_button/x.png">
 				</button>
 				<img src="img/양광.jpg" alt="양광" class="apple" onclick="openModal();currentDiv(3)">
@@ -148,7 +154,7 @@
 				</div>
 			</span>
 			<span class="container">
-				<button class="x" onclick="removeImage(5)">
+				<button class="x" onclick="removeImage(4)">
 					<image src="img/modal_button/x.png">
 				</button>
 				<img src="img/아오리.PNG" alt="아오리" class="apple" onclick="openModal();currentDiv(4)">
@@ -157,7 +163,7 @@
 				</div>
 			</span>
 			<span class="container">
-				<button class="x" onclick="removeImage(6)">
+				<button class="x" onclick="removeImage(5)">
 					<image src="img/modal_button/x.png">
 				</button>
 				<img src="img/후지.jpg" alt="후지" class="apple" onclick="openModal();currentDiv(5)">
@@ -169,6 +175,7 @@
 				<button id="reset_image_button" onclick="resetAllImages()">이미지 다시 불러오기</button>
 			</div>
 
+			<!-- Modal -->
 			<div id="myModal">
 				<div class="modal-contents" onclick="closeModal()">
 					<img class="modal-image modal-show" src="img/부사.jpg" alt="부사">
@@ -179,13 +186,13 @@
 					<img class="modal-image modal-show" src="img/후지.jpg" alt="후지">
 				</div>
 				<div class="modal-nav">
-					<button class="display-left modal-btn" onclick="plusDivs(-1)">&#10094;</button>
+					<button class="display-left modal-btn" onclick="minusDivs(-1)">&#10094;</button>
 					<button class="display-right modal-btn" onclick="plusDivs(1)">&#10095;</button>
 				</div>
 			</div>
-
 		</div>
 
+		<!-- Guestbook -->
 		<div class = "Guestbook">
 			<div id="Guestbook-title">
 				<!-- <img src="img/guestbook.png" id="guestbook_icon"><br> -->
@@ -211,6 +218,7 @@
 			</div>
 		</div>
 
+		<!-- Location -->
 		<div class = "Location">
 			<div id="map">위치</div>
 			<div id="address">경북 의성군 구천면 모흥3길 56-39<br><br></div>
@@ -218,6 +226,7 @@
 
 	</main>
 
+	<!-- Footer -->
 	<footer>
 		<div>
 			<br>Follow us on<br>
